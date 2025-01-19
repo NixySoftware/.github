@@ -1,0 +1,15 @@
+{
+    "name": "@nixysoftware/github",
+    "description": "GitHub configuration files.",
+    "author": "Nixy <info@nixy.software>",
+    "repository": "github:NixySoftware/.github",
+    "license": "MIT",
+    "private": true,
+    "scripts": {},
+    "devDependencies": {
+        "prettier": "^3.3.3"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

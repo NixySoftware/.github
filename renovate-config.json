@@ -3,6 +3,10 @@
     "extends": ["config:recommended", "schedule:weekly", ":prConcurrentLimitNone", ":prHourlyLimitNone"],
     "packageRules": [
         {
+            "groupName": "hey-api monorepo",
+            "matchSourceUrls": ["https://github.com/hey-api/openapi-ts"]
+        },
+        {
             "groupName": "leptos monorepo",
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
         }

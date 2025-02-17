@@ -3,6 +3,11 @@
     "extends": ["config:recommended", "schedule:weekly", ":prConcurrentLimitNone", ":prHourlyLimitNone"],
     "packageRules": [
         {
+            "automerge": true,
+            "matchCurrentVersion": "!/^0/",
+            "matchUpdateTypes": ["minor", "patch"]
+        },
+        {
             "groupName": "hey-api monorepo",
             "matchSourceUrls": ["https://github.com/hey-api/openapi-ts"]
         },

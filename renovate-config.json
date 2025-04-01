@@ -8,6 +8,10 @@
             "matchUpdateTypes": ["minor", "patch"]
         },
         {
+            "groupName": "apalis monorepo",
+            "matchSourceUrls": ["https://github.com/geofmureithi/apalis"]
+        },
+        {
             "groupName": "hey-api monorepo",
             "matchSourceUrls": ["https://github.com/hey-api/openapi-ts"]
         },

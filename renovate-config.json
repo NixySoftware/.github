@@ -43,7 +43,7 @@
         },
         {
             "groupName": "react-hook-form",
-            "matchSourceUrls": ["https://github.com/react-hook-form/"]
+            "matchSourceUrls": ["https://github.com/react-hook-form/**"]
         },
         {
             "groupName": "serde",

@@ -42,6 +42,10 @@
             "matchPackageNames": ["@trivago/prettier-plugin-sort-imports", "prettier", "prettier-*"]
         },
         {
+            "groupName": "react-hook-form",
+            "matchSourceUrls": ["https://github.com/react-hook-form/"]
+        },
+        {
             "groupName": "serde",
             "matchDatasources": ["crate"],
             "matchPackageNames": ["serde", "serde-*", "serde_*"]

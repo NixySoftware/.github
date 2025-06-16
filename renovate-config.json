@@ -12,12 +12,49 @@
             "matchSourceUrls": ["https://github.com/geofmureithi/apalis"]
         },
         {
+            "groupName": "eslint",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": [
+                "@eslint/*",
+                "@types/eslint-*",
+                "@typescript-eslint/*",
+                "eslint",
+                "eslint-*",
+                "typescript-eslint"
+            ]
+        },
+        {
             "groupName": "hey-api monorepo",
             "matchSourceUrls": ["https://github.com/hey-api/openapi-ts"]
         },
         {
             "groupName": "leptos monorepo",
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
+        },
+        {
+            "groupName": "postcss",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["autoprefixer", "postcss"]
+        },
+        {
+            "groupName": "prettier",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@trivago/prettier-plugin-sort-imports", "prettier", "prettier-*"]
+        },
+        {
+            "groupName": "serde",
+            "matchDatasources": ["crate"],
+            "matchPackageNames": ["serde", "serde-*", "serde_*"]
+        },
+        {
+            "groupName": "tower-sessions",
+            "matchDatasources": ["crate"],
+            "matchPackageNames": ["tower-sessions", "tower-sessions-*"]
+        },
+        {
+            "groupName": "vite",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@vitejs/*", "@vitest/*", "vite", "vite-*", "vitest"]
         }
     ],
     "pre-commit": {

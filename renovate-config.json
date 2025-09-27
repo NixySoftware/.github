@@ -32,8 +32,8 @@
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
         },
         {
-            "groupName": "nixy-core monorepo",
-            "matchSourceUrls": ["https://github.com/NixySoftware/core"]
+            "groupName": "nixy-core",
+            "matchPackageNames": ["@nixysoftware/core-*", "nixy-core-*"]
         },
         {
             "groupName": "postcss",

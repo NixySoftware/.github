@@ -33,7 +33,7 @@
         },
         {
             "groupName": "nixy-core",
-            "matchPackageNames": ["@nixysoftware/core-*", "nixy-core-*"]
+            "matchDepNames": ["@nixysoftware/core-*", "nixy-core-*"]
         },
         {
             "groupName": "postcss",

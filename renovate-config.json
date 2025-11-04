@@ -20,8 +20,8 @@
                 "@typescript-eslint/*",
                 "eslint",
                 "eslint-*",
-                "typescript-eslint",
-                "!eslint-plugin-storybook"
+                "!eslint-plugin-*",
+                "typescript-eslint"
             ]
         },
         {

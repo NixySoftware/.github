@@ -33,6 +33,10 @@
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
         },
         {
+            "groupName": "lucide",
+            "matchSourceUrls": ["https://github.com/lucide-icons/lucide", "https://github.com/RustForWeb/lucide"]
+        },
+        {
             "groupName": "nixy-core",
             "matchDepNames": ["@nixysoftware/core-*", "nixy-core-*"]
         },

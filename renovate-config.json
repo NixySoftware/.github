@@ -55,6 +55,10 @@
             "matchSourceUrls": ["https://github.com/react-hook-form/**"]
         },
         {
+            "groupName": "rustcrypto hashes monorepo",
+            "matchSourceUrls": ["https://github.com/RustCrypto/hashes"]
+        },
+        {
             "groupName": "serde",
             "matchDatasources": ["crate"],
             "matchPackageNames": ["serde", "serde-*", "serde_*"]

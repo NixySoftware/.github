@@ -8,8 +8,8 @@ permissions:
 
 jobs:
     title:
-        runs-on: ubuntu-latest
         name: Title
+        runs-on: ubuntu-latest
 
         steps:
             - name: Conventional Commits

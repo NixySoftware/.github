@@ -3,8 +3,8 @@ name: TypeScript
 on:
     workflow_call:
         inputs:
-            enable-type-check:
-                description: Enable type check.
+            enable-lint:
+                description: Enable lint job.
                 type: boolean
                 required: false
                 default: true
@@ -16,6 +16,7 @@ jobs:
     lint:
         name: Lint
         runs-on: ubuntu-latest
+        if: ${{ inputs.enable-lint }}
 
         steps:
             - name: Checkout
@@ -31,7 +32,6 @@ jobs:
               run: npm ci
 
             - name: Check types
-              if: ${{ inputs.enable-type-check }}
               run: npm run check:types
 
             - name: Lint

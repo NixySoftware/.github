@@ -2,6 +2,12 @@ name: TypeScript
 
 on:
     workflow_call:
+        inputs:
+            enable-type-check:
+                description: Enable type check.
+                type: boolean
+                required: false
+                default: true
 
 permissions:
     contents: read
@@ -25,6 +31,7 @@ jobs:
               run: npm ci
 
             - name: Check types
+              if: ${{ inputs.enable-type-check }}
               run: npm run check:types
 
             - name: Lint

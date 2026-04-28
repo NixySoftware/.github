@@ -4,12 +4,15 @@
     "author": "Nixy <info@nixy.software>",
     "repository": "github:NixySoftware/.github",
     "license": "MIT",
+    "version": "0.0.1",
     "private": true,
     "scripts": {},
     "devDependencies": {
+        "lerna": "^9.0.7",
         "prettier": "^3.5.3"
     },
     "engines": {
-        "node": ">=20"
-    }
+        "node": ">=22"
+    },
+    "packageManager": "npm@11.12.1"
 }

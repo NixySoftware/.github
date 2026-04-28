@@ -97,18 +97,18 @@ jobs:
               if: ${{ inputs.bump-typescript }}
               run: npm ci
 
-            - name: Bump TypeScript version (npm)
-              if: ${{ inputs.bump-typescript && inputs.bump-typescript-tool == 'npm' }}
-              run: npm version --no-git-tag-version --yes ${{ inputs.bump }}
-
-            - name: Bump TypeScript version (lerna)
-              if: ${{ inputs.bump-typescript && inputs.bump-typescript-tool == 'lerna' }}
-              run: npx lerna version --no-git-tag-version --yes ${{ inputs.bump }}
+            - name: Bump TypeScript version
+              if: ${{ inputs.bump-typescript }}
+              env:
+                  TOOL: ${{ case(inputs.bump-typescript-tool == 'lerna', 'npx lerna', 'npm') }}
+              run: $TOOL version --no-git-tag-version --yes ${{ inputs.bump }}
 
             - name: Extract TypeScript version
               if: ${{ inputs.extract-version == 'typescript' }}
               id: extract-typescript-version
-              run: echo "VERSION=v$(jq -r .version ./lerna.json)" >> "$GITHUB_OUTPUT"
+              env:
+                  FILE: ${{ case(inputs.bump-typescript-tool == 'lerna', 'lerna', 'package') }}
+              run: echo "VERSION=v$(jq -r .version ./$FILE.json)" >> "$GITHUB_OUTPUT"
 
             - name: Format with Prettier
               if: ${{ inputs.extract-version == 'typescript' }}

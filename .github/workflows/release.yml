@@ -15,6 +15,11 @@ on:
                 description: 'Bump TypeScript version.'
                 type: boolean
                 required: true
+            bump-typescript-tool:
+                description: 'TypeScript tool to use for bumping (`lerna` or `npm`).'
+                type: string
+                required: false
+                default: 'lerna'
             extract-version:
                 description: 'Version to extract (`rust` or `typescript`).'
                 type: string
@@ -30,31 +35,6 @@ on:
                 description: 'Target triple to install for this toolchain'
                 type: string
                 required: false
-
-    workflow_dispatch:
-        inputs:
-            bump:
-                description: 'Bump version by semver keyword.'
-                required: true
-                type: choice
-                options:
-                    - patch
-                    - minor
-                    - major
-
-            # Defaults for `workflow_call` inputs.
-            bump-rust:
-                type: boolean
-                required: false
-                default: false
-            bump-typescript:
-                type: boolean
-                required: false
-                default: true
-            extract-version:
-                type: string
-                required: false
-                default: 'typescript'
 
 permissions:
     contents: write
@@ -110,8 +90,12 @@ jobs:
               if: ${{ inputs.bump-typescript }}
               run: npm ci
 
-            - name: Bump TypeScript version
-              if: ${{ inputs.bump-typescript }}
+            - name: Bump TypeScript version (npm)
+              if: ${{ inputs.bump-typescript && inputs.bump-typescript-tool == 'npm' }}
+              run: npm version --no-git-tag-version --yes ${{ inputs.bump }}
+
+            - name: Bump TypeScript version (lerna)
+              if: ${{ inputs.bump-typescript && inputs.bump-typescript-tool == 'lerna' }}
               run: npx lerna version --no-git-tag-version --yes ${{ inputs.bump }}
 
             - name: Extract TypeScript version

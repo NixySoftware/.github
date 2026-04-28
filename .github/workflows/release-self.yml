@@ -25,3 +25,6 @@ jobs:
             bump-typescript: true
             bump-typescript-tool: 'npm'
             extract-version: 'typescript'
+        secrets:
+            app-client-id: ${{ secrets.APP_ID }}
+            app-private-key: ${{ secrets.APP_PRIVATE_KEY }}

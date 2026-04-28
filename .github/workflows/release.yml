@@ -5,8 +5,20 @@ on:
         inputs:
             bump:
                 description: 'Bump version by semver keyword.'
-                required: true
                 type: string
+                required: true
+            bump-rust:
+                description: 'Bump Rust version.'
+                type: boolean
+                required: true
+            bump-typescript:
+                description: 'Bump TypeScript version.'
+                type: boolean
+                required: true
+            extract-version:
+                description: 'Version to extract (`rust` or `typescript`).'
+                type: string
+                required: true
 
             # Inputs for `actions-rust-lang/setup-rust-toolchain`.
             # https://github.com/actions-rust-lang/setup-rust-toolchain/blob/main/action.yml
@@ -18,6 +30,31 @@ on:
                 description: 'Target triple to install for this toolchain'
                 type: string
                 required: false
+
+    workflow_dispatch:
+        inputs:
+            bump:
+                description: 'Bump version by semver keyword.'
+                required: true
+                type: choice
+                options:
+                    - patch
+                    - minor
+                    - major
+
+            # Defaults for `workflow_call` inputs.
+            bump-rust:
+                type: boolean
+                required: false
+                default: false
+            bump-typescript:
+                type: boolean
+                required: false
+                default: true
+            extract-version:
+                type: string
+                required: false
+                default: 'typescript'
 
 permissions:
     contents: write
@@ -39,23 +76,63 @@ jobs:
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
             - name: Set up Rust toolchain
+              if: ${{ inputs.bump-rust }}
               uses: actions-rust-lang/setup-rust-toolchain@2b1f5e9b395427c92ee4e3331786ca3c37afe2d7 # v1.16.0
               with:
                   toolchain: ${{ inputs.toolchain }}
                   target: ${{ inputs.target }}
 
             - name: Install Cargo Binary Install
+              if: ${{ inputs.bump-rust }}
               uses: cargo-bins/cargo-binstall@dc19f1e48450eefe5a29b8da6c6b00a87d730b37 # v1.18.1
 
             - name: Install crates
+              if: ${{ inputs.bump-rust }}
               run: cargo binstall --force -y cargo-workspaces toml-cli
 
-            - name: Bump version
+            - name: Bump Rust version
+              if: ${{ inputs.bump-rust }}
               run: cargo workspaces version --all --no-git-commit --yes ${{ inputs.bump }}
 
-            - name: Extract version
-              id: extract-version
+            - name: Extract Rust version
+              if: ${{ inputs.extract-version == 'rust' }}
+              id: extract-rust-version
               run: echo "VERSION=v$(toml get Cargo.toml workspace.package.version --raw)" >> "$GITHUB_OUTPUT"
+
+            - name: Set up Node.js
+              if: ${{ inputs.bump-typescript }}
+              uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+              with:
+                  node-version: 'lts/*'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              if: ${{ inputs.bump-typescript }}
+              run: npm ci
+
+            - name: Bump TypeScript version
+              if: ${{ inputs.bump-typescript }}
+              run: npx lerna version --no-git-tag-version --yes ${{ inputs.bump }}
+
+            - name: Extract TypeScript version
+              if: ${{ inputs.extract-version == 'typescript' }}
+              id: extract-typescript-version
+              run: echo "VERSION=v$(jq -r .version ./lerna.json)" >> "$GITHUB_OUTPUT"
+
+            - name: Format with Prettier
+              if: ${{ inputs.extract-version == 'typescript' }}
+              run: npx prettier --write .
+
+            - name: Version
+              id: version
+              env:
+                  VERSION: |-
+                      ${{ case(
+                        inputs.extract-version == 'rust', steps.extract-rust-version.outputs.VERSION,
+                        inputs.extract-version == 'typescript', steps.extract-typescript-version.outputs.VERSION,
+                        ''
+                      ) }}
+              run: test -n "$VERSION" && echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
 
             - name: Add changes
               run: git add .
@@ -64,7 +141,7 @@ jobs:
               id: commit
               uses: dsanders11/github-app-commit-action@2bbcd331016d8c950b05a24b56e7eb9cb50d545e # v2.1.0
               with:
-                  message: ${{ steps.extract-version.outputs.VERSION }}
+                  message: ${{ steps.version.outputs.VERSION }}
                   token: ${{ steps.app-token.outputs.token }}
 
             - name: Reset and pull
@@ -73,7 +150,7 @@ jobs:
             - name: Tag
               uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
               env:
-                  GIT_TAG: ${{ steps.extract-version.outputs.VERSION }}
+                  GIT_TAG: ${{ steps.version.outputs.VERSION }}
                   GIT_SHA: ${{ steps.commit.outputs.sha }}
               with:
                   script: |
@@ -89,5 +166,5 @@ jobs:
               with:
                   generate_release_notes: true
                   make_latest: true
-                  tag_name: ${{ steps.extract-version.outputs.VERSION }}
+                  tag_name: ${{ steps.version.outputs.VERSION }}
                   token: ${{ steps.app-token.outputs.token }}

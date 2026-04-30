@@ -8,11 +8,10 @@
     "private": true,
     "scripts": {},
     "devDependencies": {
-        "lerna": "^9.0.7",
         "prettier": "^3.5.3"
     },
     "engines": {
-        "node": ">=22"
+        "node": ">=24"
     },
     "packageManager": "npm@11.12.1"
 }

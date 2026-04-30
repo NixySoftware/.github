@@ -4,7 +4,7 @@
     "author": "Nixy <info@nixy.software>",
     "repository": "github:NixySoftware/.github",
     "license": "MIT",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "private": true,
     "scripts": {},
     "devDependencies": {

@@ -3,12 +3,32 @@ name: Rust
 on:
     workflow_call:
         inputs:
+            if:
+                description: Whether to run the jobs.
+                type: boolean
+                required: false
+                default: true
             runs-on:
                 description: The type of machine to run the job on.
                 type: string
                 required: false
                 default: ubuntu-latest
 
+            enable-lint:
+                description: Enable lint job.
+                type: boolean
+                required: false
+                default: true
+            enable-format:
+                description: Enable format job.
+                type: boolean
+                required: false
+                default: true
+            enable-dependencies:
+                description: Enable dependencies job.
+                type: boolean
+                required: false
+                default: true
             enable-test:
                 description: Enable test job.
                 type: boolean
@@ -32,6 +52,7 @@ permissions:
 jobs:
     lint:
         name: Lint
+        if: ${{ inputs.if && inputs.enable-lint }}
         runs-on: ${{ inputs.runs-on }}
 
         steps:
@@ -50,6 +71,7 @@ jobs:
 
     format:
         name: Format
+        if: ${{ inputs.if && inputs.enable-format }}
         runs-on: ${{ inputs.runs-on }}
 
         steps:
@@ -77,6 +99,7 @@ jobs:
 
     dependencies:
         name: Dependencies
+        if: ${{ inputs.if && inputs.enable-dependencies }}
         runs-on: ${{ inputs.runs-on }}
 
         steps:
@@ -103,8 +126,8 @@ jobs:
 
     test:
         name: Test
+        if: ${{ inputs.if && inputs.enable-test }}
         runs-on: ${{ inputs.runs-on }}
-        if: ${{ inputs.enable-test }}
 
         steps:
             - name: Checkout

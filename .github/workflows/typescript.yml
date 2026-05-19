@@ -3,6 +3,11 @@ name: TypeScript
 on:
     workflow_call:
         inputs:
+            if:
+                description: Whether to run the jobs.
+                type: boolean
+                required: false
+                default: true
             runs-on:
                 description: The type of machine to run the job on.
                 type: string
@@ -36,8 +41,8 @@ permissions:
 jobs:
     lint:
         name: Lint
+        if: ${{ inputs.if && inputs.enable-lint }}
         runs-on: ${{ inputs.runs-on }}
-        if: ${{ inputs.enable-lint }}
 
         steps:
             - name: Checkout
@@ -60,8 +65,8 @@ jobs:
 
     format:
         name: Format
+        if: ${{ inputs.if && inputs.enable-format }}
         runs-on: ${{ inputs.runs-on }}
-        if: ${{ inputs.enable-format }}
 
         steps:
             - name: Checkout
@@ -81,8 +86,8 @@ jobs:
 
     dependencies:
         name: Dependencies
+        if: ${{ inputs.if && inputs.enable-dependencies }}
         runs-on: ${{ inputs.runs-on }}
-        if: ${{ inputs.enable-dependencies }}
 
         steps:
             - name: Checkout
@@ -102,8 +107,8 @@ jobs:
 
     test:
         name: Test
+        if: ${{ inputs.if && inputs.enable-test }}
         runs-on: ${{ inputs.runs-on }}
-        if: ${{ inputs.enable-test }}
 
         steps:
             - name: Checkout

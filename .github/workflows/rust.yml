@@ -89,7 +89,7 @@ jobs:
               uses: cargo-bins/cargo-binstall@aaa84a43aec4955a42c5ffc65d258961e39f276e # v1.19.1
 
             - name: Install crates
-              run: cargo binstall -y --force cargo-sort
+              run: cargo binstall --force -y cargo-sort@2.1.4
 
             - name: Check manifest formatting
               run: cargo sort --workspace --check
@@ -116,7 +116,7 @@ jobs:
               uses: cargo-bins/cargo-binstall@aaa84a43aec4955a42c5ffc65d258961e39f276e # v1.19.1
 
             - name: Install crates
-              run: cargo binstall -y --force cargo-deny cargo-machete
+              run: cargo binstall --force -y cargo-deny@0.19.8 cargo-machete@0.9.2
 
             - name: Check dependencies
               run: cargo deny check

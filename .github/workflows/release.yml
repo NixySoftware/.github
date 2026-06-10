@@ -75,7 +75,7 @@ jobs:
 
             - name: Install crates
               if: ${{ inputs.bump-rust }}
-              run: cargo binstall --force -y cargo-workspaces toml-cli
+              run: cargo binstall --force -y cargo-workspaces@0.4.2 toml-cli@0.2.3
 
             - name: Bump Rust version
               if: ${{ inputs.bump-rust }}

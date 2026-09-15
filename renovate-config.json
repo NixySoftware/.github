@@ -52,7 +52,11 @@
             "matchSourceUrls": ["https://github.com/lucide-icons/lucide", "https://github.com/RustForWeb/lucide"]
         },
         {
-            "groupName": "nixy-core",
+            "groupName": "nixy config",
+            "matchSourceUrls": ["https://github.com/NixySoftware/config"]
+        },
+        {
+            "groupName": "nixy core",
             "matchDepNames": ["@nixysoftware/core-*", "nixy-core-*"]
         },
         {
@@ -90,7 +94,12 @@
         {
             "groupName": "vite",
             "matchDatasources": ["npm"],
-            "matchPackageNames": ["@vitejs/*", "@vitest/*", "vite", "vite-*", "vitest"]
+            "matchPackageNames": ["@vitejs/*", "vite", "vite-*"]
+        },
+        {
+            "groupName": "vitest",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@vitest/*", "vitest"]
         }
     ],
     "pre-commit": {

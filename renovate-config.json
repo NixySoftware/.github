@@ -19,8 +19,8 @@
             "matchUpdateTypes": ["minor", "patch"]
         },
         {
-            "groupName": "apalis monorepo",
-            "matchSourceUrls": ["https://github.com/geofmureithi/apalis"]
+            "groupName": "apalis",
+            "matchSourceUrls": ["https://github.com/apalis-dev/**"]
         },
         {
             "groupName": "eslint",

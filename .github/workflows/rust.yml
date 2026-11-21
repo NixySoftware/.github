@@ -62,7 +62,7 @@ jobs:
             - name: Set up Rust toolchain
               uses: actions-rust-lang/setup-rust-toolchain@a188e68d0fd2bd36ad51dccb2b07ba6e75105f30 # v2.0.1
               with:
-                  cache-shared-key: default
+                  cache-save-if: ${{ github.ref == 'refs/heads/main' }}
                   toolchain: ${{ inputs.toolchain }}
                   target: ${{ inputs.target }}
                   components: clippy
@@ -82,7 +82,7 @@ jobs:
             - name: Set up Rust toolchain
               uses: actions-rust-lang/setup-rust-toolchain@a188e68d0fd2bd36ad51dccb2b07ba6e75105f30 # v2.0.1
               with:
-                  cache-shared-key: default
+                  cache-save-if: ${{ github.ref == 'refs/heads/main' }}
                   toolchain: ${{ inputs.toolchain }}
                   target: ${{ inputs.target }}
                   components: rustfmt
@@ -111,7 +111,7 @@ jobs:
             - name: Set up Rust toolchain
               uses: actions-rust-lang/setup-rust-toolchain@a188e68d0fd2bd36ad51dccb2b07ba6e75105f30 # v2.0.1
               with:
-                  cache-shared-key: default
+                  cache-save-if: ${{ github.ref == 'refs/heads/main' }}
                   toolchain: ${{ inputs.toolchain }}
                   target: ${{ inputs.target }}
 
@@ -139,7 +139,7 @@ jobs:
             - name: Set up Rust toolchain
               uses: actions-rust-lang/setup-rust-toolchain@a188e68d0fd2bd36ad51dccb2b07ba6e75105f30 # v2.0.1
               with:
-                  cache-shared-key: default
+                  cache-save-if: ${{ github.ref == 'refs/heads/main' }}
                   toolchain: ${{ inputs.toolchain }}
                   target: ${{ inputs.target }}
                   components: rust-src

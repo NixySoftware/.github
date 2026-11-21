@@ -92,6 +92,10 @@
             "matchPackageNames": ["tower-sessions", "tower-sessions-*"]
         },
         {
+            "groupName": "utoipa monorepo",
+            "matchSourceUrls": ["https://github.com/juhaku/utoipa"]
+        },
+        {
             "groupName": "vite",
             "matchDatasources": ["npm"],
             "matchPackageNames": ["@vitejs/*", "vite", "vite-*"]
